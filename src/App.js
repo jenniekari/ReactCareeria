@@ -1,14 +1,30 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import Laskuri from './Laskuri';
+import Viesti from './Viesti';
 
-function App() {
+const App = () => {
+
+  // App komponentin tila
+  const [showLaskuri, setShowLaskuri] = useState(false) //boolean
+
+  const huomio = () => {
+    alert("Huomio!")
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+        <hi>Hello from React!</hi>
+        <p></p>
+
+        {/*jos showlaskuri on tosi, näytä laskuri.*/}
+        {showLaskuri && <Laskuri huomio={huomio}/>}
+        {showLaskuri && <button onClick={() => setShowLaskuri(!showLaskuri)}>Piilota laskuri</button>}
+        {!showLaskuri && <button onClick={() => setShowLaskuri(!showLaskuri)}>Näytä laskuri</button>}
+
+        <Viesti teksti="Tervehdys app komponentista!"></Viesti>
+
         <a
           className="App-link"
           href="https://reactjs.org"
