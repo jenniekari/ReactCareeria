@@ -57,4 +57,11 @@ h4 {
 button {
   padding: 3px 6px;
   margin: 3px;
+  margin-bottom: 2%;
+}
+
+.customerDetails {
+  background-color: lightgreen;
+  color: green;
+  border-style: solid;
 }

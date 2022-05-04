@@ -3,6 +3,7 @@ import './App.css';
 import Laskuri from './Laskuri';
 import Posts from './Posts';
 import Viesti from './Viesti';
+import CustomerList from './CustomerList';
 
 const App = () => {
 
@@ -18,6 +19,8 @@ const App = () => {
       <header className="App-header">
         <hi>Hello from React!</hi>
         <p></p>
+
+        <CustomerList></CustomerList>
 
         {/*jos showlaskuri on tosi, näytä laskuri.*/}
         {showLaskuri && <Laskuri huomio={huomio}/>}
