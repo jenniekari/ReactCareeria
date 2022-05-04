@@ -15,7 +15,7 @@ const [clear, setClear]=useState(false);
 
         <button onClick={() => setLuku(luku -1)}>-</button>
 
-        <button onClick={() => setLuku(luku === 0)}>C</button>
+        <button onClick={() => setLuku(0)}>Reset</button>
 
         <button onClick={huomio}>huomio</button>
     </>

@@ -5,6 +5,7 @@ const Posts = () => {
 
 //Komponentin tilan määritys
 const [posts, setPosts] = useState([])
+const [showPosts, setShowPosts] = useState(false)
 
   useEffect(() =>{
     fetch("https://jsonplaceholder.typicode.com/posts")
@@ -15,14 +16,14 @@ const [posts, setPosts] = useState([])
 
   return (
     <>
-        <h2>Posts from typicode</h2>
+        <h2 onClick={() =>setShowPosts(!showPosts)}>Show posts from typicode. Press here.</h2>
 
         {
-          posts && posts.map(p => 
+          showPosts && posts && posts.map(p => 
             <div className='posts' key={p.id}>
-            <h2>{p.id}</h2>
-            <h3>{p.userId}</h3>
-            <h4>{p.title}</h4>
+            <h2>ID: {p.id}</h2>
+            <h5>User ID: {p.userId}</h5>
+            <h4>TITLE: {p.title}</h4>
             <p>{p.body}</p>
             </div>
             )
