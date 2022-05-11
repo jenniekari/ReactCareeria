@@ -1,21 +1,22 @@
-import './App.css';
-import React, {useState} from 'react';
+import './App.css'
+import React, {useState} from 'react'
 
-// props on nimeltään customer
+//props on nimeltään customer
 const Customer = ({customer}) => {
 
-// Komponentin tilan määritys
+//Komponentin tilan määritys
 const [showDetails, setShowDetails] = useState(false)
 
   return (
-    <div className='custDiv'>
-        <h4 onMouseEnter={() => setShowDetails(true)}
-        onMouseLeave={() => setShowDetails(false)}
-        >
-            {customer.companyName}
+    <div className='customerDiv'>
+        
+       <h4 onMouseEnter={() => setShowDetails(true)}
+       onMouseLeave={() => setShowDetails(false)}
+       >
+           {customer.companyName}
         </h4>
 
-        {showDetails && <div className="customerDetails">
+       {showDetails && <div className="customerDetails">
                 <h3>{customer.companyName}</h3>
                 <table>
                     <thead>
@@ -38,7 +39,7 @@ const [showDetails, setShowDetails] = useState(false)
                     </tbody>
                 </table></div>}
     </div>
-  );
+  )
 }
 
-export default Customer;
+export default Customer

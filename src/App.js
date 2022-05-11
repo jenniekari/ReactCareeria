@@ -4,11 +4,18 @@ import Laskuri from './Laskuri';
 import Posts from './Posts';
 import Viesti from './Viesti';
 import CustomerList from './CustomerList';
+import Message from './Message';
 
 const App = () => {
 
-  // App komponentin tila
+  //App komponentin tila
   const [showLaskuri, setShowLaskuri] = useState(false) //boolean
+
+  //Statet messgaen näyttämistä varten
+  const [showMessage, setShowMessage] = useState(false)
+  const [message, setMessage] = useState('')
+  const [isPositive, setIsPositive] = useState(false)
+
 
   const huomio = () => {
     alert("Huomio!")
@@ -18,9 +25,13 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <hi>Hello from React!</hi>
+
+        {/*Kaikki muu on html, paitsi curly brackettien sisällä on javascriptiä. Kuten tämä ja alla oleva!*/}
+        {showMessage && <Message message={message} isPositive={isPositive}/>}
+
         <p></p>
 
-        <CustomerList></CustomerList>
+        <CustomerList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage}/>
 
         {/*jos showlaskuri on tosi, näytä laskuri.*/}
         {showLaskuri && <Laskuri huomio={huomio}/>}

@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const baseUrl ="https://localhost:44345/api/customers"
+const baseUrl ="https://localhost:44345/api/Customers"
 
+//jos ei yhtään parametria, niin riittää tyhjät sulkeet
 const getAll = () => {
     /*const config = {
         headers: { Authorization: token},
@@ -10,4 +11,9 @@ const getAll = () => {
     return request.then(response => response.data)
 }
 
-export default { getAll }
+//jos on vain yksi parametri, ei tarvitse sulkeita. Jos olisi monta, tarvitaan sulkeet
+const create = newCustomer => {
+    return axios.post(baseUrl, newCustomer)
+}
+
+export default { getAll, create }
