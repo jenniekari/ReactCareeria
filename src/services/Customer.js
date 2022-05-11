@@ -16,4 +16,14 @@ const create = newCustomer => {
     return axios.post(baseUrl, newCustomer)
 }
 
-export default { getAll, create }
+const remove = id => {
+    return axios.delete(`${baseUrl}/${id}`)
+}
+
+//ei ole pakko käyttää sulkuja olion ympärillä, kun käytetään yhtä
+const update = (object) => {
+    //ensin url ja sitten olio, joka oltiin nimetty ylemmällä rivillä eli olio
+    return axios.put(`${baseUrl}/${object.customerId}`, object)
+}
+
+export default { getAll, create, remove, update }
