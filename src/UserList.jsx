@@ -1,7 +1,7 @@
 import './App.css'
 import React, {useState, useEffect} from 'react'
 import UserService from './services/User'
-//import UserAdd from './UserAdd'
+import UserAdd from './UserAdd'
 
 const UserList = ({setMessage, setIsPositive, setShowMessage}) => {
 
@@ -36,8 +36,8 @@ const editUsers = (user) => {
         <>
             <h1><nobr>Users</nobr>
 
-            {/*{lisäystila && <UserAdd setLisäystila={setLisäystila} 
-            setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} />}*/}
+            {lisäystila && <UserAdd setLisäystila={setLisäystila} 
+            setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} />}
             
             {!lisäystila && <button className="nappi" onClick={() => setLisäystila(true)}>Add new</button>}</h1>
 
