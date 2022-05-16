@@ -14,8 +14,7 @@ const [lisäystila, setLisäystila] = useState(false)
 const [muokkaustila, setMuokkaustila] = useState(false)
 const [reload, reloadNow] = useState(false)
 const [muokattavaCustomer, setMuokattavaCustomer] = useState(false)
-
-
+const [search, setSearch] = useState("")
 
 useEffect(() => {
   CustomerService.getAll()
@@ -24,6 +23,12 @@ useEffect(() => {
 })
 },[lisäystila, reload, muokkaustila] //toinen parametri on taulukko. Eli jos joku näistä muuttuu, ajetaan useEffect
 )
+
+  //Hakukentän onChange tapahtumankäsittelijä eli dynaaminen haku asiakkaille
+  const handleSearchInputChange = (event) => {
+    setShowCustomers(true)
+    setSearch(event.target.value.toLowerCase())
+}
 
 const editCustomer = (customer) => {
   setMuokattavaCustomer(customer)
@@ -37,6 +42,11 @@ const editCustomer = (customer) => {
 
                 {!lisäystila && <button className="nappi" onClick={() => setLisäystila(true)}>Add new</button>}</h1>
 
+                {/*jos lisäystila ja muokkaustila on false, näytetään input kenttä */}
+                {!lisäystila && !muokkaustila &&
+                <input placeholder="Search by company name" value={search} onChange={handleSearchInputChange} />
+                }
+
                 {lisäystila && <CustomerAdd setLisäystila={setLisäystila} 
                 setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage}
                 />}
@@ -48,14 +58,21 @@ const editCustomer = (customer) => {
 
 
         { //alla olevat ovat ehtoja, paitsi viimeinen. Jos lisäystila ja muokkaustila ei ole, sekä customers on, niin tehdään customers.map
-            !lisäystila && !muokkaustila && showCustomers && customers && customers.map(c => (
-              //showCustomers && customers && customers.map(c => (
-              //tällä ylläolevalla koodilla se näyttäisi aina asiakkaat, kun hiiri hover sen päälle
-              <Customer key={c.customerId} customer={c} reloadNow={reloadNow} reload={reload}
+           !lisäystila && !muokkaustila && showCustomers && customers && customers.map(c => //aliasoidaan customer c-kirjaimella
+            //showCustomers && customers && customers.map(c => (
+            //tällä ylläolevalla koodilla se näyttäisi aina asiakkaat, kun hiiri hover sen päälle  
+            {
+                const lowerCaseName = c.companyName.toLowerCase()
+                //jos asiakkaan kohdalla täyttyy hakutermi, mennään if:stä eteenpäin eli return
+                if (lowerCaseName.indexOf(search) > -1) {
+                    return(
+                <Customer key={c.customerId} customer={c} reloadNow={reloadNow} reload={reload}
                 setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage}
                 editCustomer={editCustomer}
                 />
               )
+                    }
+                  }
             )
         }
 
