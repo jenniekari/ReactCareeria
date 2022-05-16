@@ -47,9 +47,11 @@ const editCustomer = (customer) => {
                 />}
 
 
-        {
-            showCustomers && customers && customers.map(c => (
-                <Customer key={c.customerId} customer={c} reloadNow={reloadNow} reload={reload}
+        { //alla olevat ovat ehtoja, paitsi viimeinen. Jos lisäystila ja muokkaustila ei ole, sekä customers on, niin tehdään customers.map
+            !lisäystila && !muokkaustila && showCustomers && customers && customers.map(c => (
+              //showCustomers && customers && customers.map(c => (
+              //tällä ylläolevalla koodilla se näyttäisi aina asiakkaat, kun hiiri hover sen päälle
+              <Customer key={c.customerId} customer={c} reloadNow={reloadNow} reload={reload}
                 setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage}
                 editCustomer={editCustomer}
                 />
