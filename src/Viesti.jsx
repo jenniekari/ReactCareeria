@@ -1,4 +1,6 @@
-import './App.css';
+//Tämä ei ole enää käytössä sovelluksessa
+
+/*import './App.css';
 import React, {} from 'react';
 
 //props eli property = ominaisuus
@@ -9,3 +11,4 @@ const Viesti = (props) => (
   );
 
 export default Viesti;
+*/

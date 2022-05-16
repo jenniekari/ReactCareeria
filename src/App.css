@@ -58,12 +58,17 @@ button {
   padding: 3px 6px;
   margin: 3px;
   margin-bottom: 2%;
+  width: 30%;
 }
 
 .customerDetails {
   background-color: lightgreen;
   color: green;
   border-style: solid;
+  width: 80%;
+  margin: auto;
+  border-radius: 30px;
+  margin-bottom: 40px;
 }
 
 .nappi {
@@ -102,4 +107,8 @@ button {
   margin-top: 10%;
   width: 70%;
   margin-left: 15%;
+}
+
+#userTable{
+  margin:auto;
 }
