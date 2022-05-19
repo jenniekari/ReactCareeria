@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './App.css'
 import Laskuri from './Laskuri'
 import Posts from './Posts'
@@ -8,6 +8,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Message from './Message'
+import Login from './Login'
 //import Viesti from './Viesti';
 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
@@ -21,14 +22,39 @@ const App = () => {
   const [showMessage, setShowMessage] = useState(false)
   const [message, setMessage] = useState('')
   const [isPositive, setIsPositive] = useState(false)
-
-
+  const [loggedInUser, setLoggedInUser] = useState('')
   /*const huomio = () => {
     alert("Huomio!")
   }*/
 
+  useEffect(() => {
+    let storedUser = localStorage.getItem("username")
+    if (storedUser !== null) {
+      setLoggedInUser(storedUser)
+    }
+  },[])
+
+  //Logout napin tapahtumankäsittelijä
+  const logout = () => {
+    localStorage.clear()
+    setLoggedInUser('')
+    setMessage('Logout was successfull.')
+    setShowMessage(true)
+    setTimeout(()=>{
+      setShowMessage(true)
+      setMessage('See you soon!')
+    },500)
+  }
+
   return (
     <div className="App">
+
+      
+{!loggedInUser && <Login setMessage={setMessage} setIsPositive={setIsPositive} 
+                setShowMessage={setShowMessage} setLoggedInUser={setLoggedInUser} />}
+  {!loggedInUser && showMessage && <Message message={message} isPositive={isPositive}/>}
+
+{loggedInUser &&
       <Router>
 
       <Navbar bg="dark" variant="dark">
@@ -37,6 +63,7 @@ const App = () => {
               <Nav.Link href='/Users' className='nav-link'>Users</Nav.Link>
               <Nav.Link href='/Laskuri' className='nav-link'>Laskuri</Nav.Link>
               <Nav.Link href='/Posts' className='nav-link'>Typicode posts</Nav.Link>
+              <button onClick={() => logout()}>Logout</button>
             </Nav>
           </Navbar>
 {/*
@@ -79,6 +106,7 @@ const App = () => {
           </Switch>
 
       </Router>
+      }
     </div>
   );
 }

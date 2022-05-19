@@ -2,28 +2,45 @@ import axios from "axios";
 
 const baseUrl ="https://localhost:44345/api/Customers"
 
+let token = null
+
+// Tämä on metodi jota kutsutaan aina ennen kuin tehdään muu pyyntö serviceen
+// Parametrina annetaan token joka otetaan local storagesta
+const setToken = newToken => {
+    token = `bearer ${newToken}`
+}
+
 //jos ei yhtään parametria, niin riittää tyhjät sulkeet
 const getAll = () => {
-    /*const config = {
+    const config = {
         headers: { Authorization: token},
-    }*/
-    const request = axios.get(baseUrl)
+    }
+    const request = axios.get(baseUrl, config)
     return request.then(response => response.data)
 }
 
 //jos on vain yksi parametri, ei tarvitse sulkeita. Jos olisi monta, tarvitaan sulkeet
 const create = newCustomer => {
-    return axios.post(baseUrl, newCustomer)
+    const config = {
+        headers: { Authorization: token},
+    }
+    return axios.post(baseUrl, newCustomer, config)
 }
 
 const remove = id => {
-    return axios.delete(`${baseUrl}/${id}`)
+    const config = {
+        headers: { Authorization: token},
+    }
+    return axios.delete(`${baseUrl}/${id}`, config)
 }
 
 //ei ole pakko käyttää sulkuja olion ympärillä, kun käytetään yhtä
 const update = (object) => {
+    const config = {
+        headers: { Authorization: token},
+    }
     //ensin url ja sitten olio, joka oltiin nimetty ylemmällä rivillä eli olio
-    return axios.put(`${baseUrl}/${object.customerId}`, object)
+    return axios.put(`${baseUrl}/${object.customerId}`, object, config)
 }
 
-export default { getAll, create, remove, update }
+export default { getAll, create, remove, update, setToken }

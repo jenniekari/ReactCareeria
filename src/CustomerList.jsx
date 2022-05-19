@@ -16,8 +16,15 @@ const [reload, reloadNow] = useState(false)
 const [muokattavaCustomer, setMuokattavaCustomer] = useState(false)
 const [search, setSearch] = useState("")
 
-useEffect(() => {
-  CustomerService.getAll()
+useEffect(() => { 
+//Luetaan token localstoragesta
+  const token = localStorage.getItem('token')
+  //Asetetaan em. token CustomerServicessä olevaan muistipaikkaan
+  CustomerService
+  //Tehdään get pyyntö käyttäen CustomerServicen
+      .setToken(token)
+      
+  CustomerService.getAll() //tällä haetaan asiakkaat
   .then(data => {
     setCustomers(data)
 })
