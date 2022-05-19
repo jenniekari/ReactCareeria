@@ -112,3 +112,19 @@ button {
 #userTable{
   margin:auto;
 }
+
+.button2{
+  width: 50%;
+}
+
+th{
+  padding-bottom: 5%;
+}
+
+td{
+  padding-bottom: 10%;
+}
+
+#userTable{
+  width: 50%;
+}
