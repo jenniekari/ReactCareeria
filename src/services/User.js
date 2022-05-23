@@ -18,9 +18,9 @@ const remove = id => {
 }
 
 //ei ole pakko käyttää sulkuja olion ympärillä, kun käytetään yhtä
-const update = (object) => {
+const update = (id, object) => {
     //ensin url ja sitten olio, joka oltiin nimetty ylemmällä rivillä eli olio
-    return axios.put(`${baseUrl}/${object.userId}`, object)
+    return axios.put(`${baseUrl}/${id}`, object)
 }
 
 export default { getAll, create, remove, update }

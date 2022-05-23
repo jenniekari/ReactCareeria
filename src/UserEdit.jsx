@@ -10,7 +10,7 @@ const [newFirstname, setNewFirstname] = useState(muokattavaUser.firstName)
 const [newLastname, setNewLastname] = useState(muokattavaUser.lastName)
 const [newEmail, setNewEmail] = useState(muokattavaUser.email)
 const [newAccesslevelId, setNewAccesslevelId] = useState(muokattavaUser.accesslevelId)
-const [newUsername, setNewUsername] = useState(muokattavaUser.userName)
+//const [newUsername, setNewUsername] = useState(muokattavaUser.userName)
 //const [newPassword, setNewPassword] = useState(muokattavaUser.password)
 
 // onSubmit tapahtumankäsittelijä funktio
@@ -20,15 +20,15 @@ const handleSubmit = (event) => {
         firstName: newFirstname,
         lastName: newLastname,
         email: newEmail,
-        accesslevelId: parseInt(newAccesslevelId),
-        username: newUsername/*,
-        password: md5(newPassword)*/
+        accesslevelId: parseInt(newAccesslevelId)
+        //username: newUsername,
+        //password: md5(newPassword)
     }
     
-    UserService.update(newUser)
+    UserService.update(muokattavaUser.userId, newUser)
     .then(response => {
       if (response.status === 200) {
-       setMessage("Edited User: " + newUser.username)
+       setMessage("Edited User: " + newUser.firstName + " " + newUser.lastName)
        setIsPositive(true)
        setShowMessage(true)
       
@@ -88,14 +88,14 @@ const handleSubmit = (event) => {
                 <input type="text" value={newAccesslevelId} placeholder="Accesslevel ID"
                     onChange={({ target }) => setNewAccesslevelId(target.value)} />
             </div>
-            <div>
-                <label>Username</label>
+            {/*<div>
+               {/* <label>Username</label>
         </div>
             <div>
                 <input type="text" value={newUsername} placeholder="Username"
                     onChange={({ target }) => setNewUsername(target.value)} />
             </div>
-            {/*<div>
+            <div>
                 <label>Password</label>
         </div>
             <div>
