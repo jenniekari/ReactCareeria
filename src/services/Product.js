@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl ="https://localhost:44345/api/Users"
+const baseUrl ="https://localhost:44345/api/Products"
 
 let token = null
 
@@ -20,11 +20,11 @@ const getAll = () => {
 }
 
 //jos on vain yksi parametri, ei tarvitse sulkeita. Jos olisi monta, tarvitaan sulkeet
-const create = newUser => {
+const create = newProduct => {
     const config = {
         headers: { Authorization: token},
     }
-    return axios.post(baseUrl, newUser, config)
+    return axios.post(baseUrl, newProduct, config)
 }
 
 const remove = id => {
@@ -43,4 +43,4 @@ const update = (id, object) => {
     return axios.put(`${baseUrl}/${id}`, object, config)
 }
 
-export default { getAll, create, remove, update, setToken}
+export default { getAll, create, remove, update }

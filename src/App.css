@@ -128,3 +128,21 @@ td{
 #userTable{
   width: 50%;
 }
+
+.labelD{
+  display: inline-block;
+  text-align: left;
+}
+
+#checkId{
+  width:30px;
+  height:30px;
+  background:white;
+  border-radius:5px;
+  border:2px solid #555;
+}
+
+if(isAdmin == 1)
+    .logged-in-menu{
+        display:none;
+    }

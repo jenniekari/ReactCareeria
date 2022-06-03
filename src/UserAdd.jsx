@@ -11,10 +11,11 @@ const UserAdd = ({setLisäystila, setIsPositive, setMessage, setShowMessage}) =>
 const [newFirstname, setNewFirstname] = useState('')
 const [newLastname, setNewLastname] = useState('')
 const [newEmail, setNewEmail] = useState('')
-const [newAccesslevelId, setNewAccesslevelId] = useState(2)
+const [newAccesslevelId, setNewAccesslevelId] = useState(1)
 const [newUsername, setNewUsername] = useState('')
 const [newPassword, setNewPassword] = useState('')
-
+const [passwordInfo, setPasswordInfo] = useState('')
+const [pwInfoStyle, setPwInfoStyle] = useState('red')
 
 // onSubmit tapahtumankäsittelijä funktio
 const handleSubmit = (event) => {
@@ -56,6 +57,17 @@ const handleSubmit = (event) => {
       })
     }
 
+    //Salasanan varmistus
+    const confirm = (param) => {
+      if (param !== newPassword) {
+        setPasswordInfo("Passwords do not match")
+        setPwInfoStyle('red')
+      }
+      else {
+        setPasswordInfo("Passwords match")
+        setPwInfoStyle('green')
+      }
+    }
 
   return (
     <div id="addNew">
@@ -86,8 +98,19 @@ const handleSubmit = (event) => {
                 <input type="password" value={newPassword} placeholder="Password"
                     onChange={({ target }) => setNewPassword(target.value)} />
             </div>
+             <div>
+            <input type='password' placeholder='Confirm password'
+              onChange={({target}) => confirm(target.value)} />
+          </div>
+          <div>
+            {pwInfoStyle === 'red' ?
+            <label style={{color: 'red'}}>{passwordInfo}</label> :
+            <label style={{color: 'green'}}>{passwordInfo}</label>
+            }
+          </div>
             
-         <input type='submit' value='save' />
+          {pwInfoStyle === 'red' && <input type='submit' value='Save' disabled/>}
+          {pwInfoStyle === 'green' && <input type='submit' value='Save' />}
          <input type='button' value='back' onClick={() => setLisäystila(false)} />
        </form>
 

@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import LoginService from './services/Auth'
 import md5 from 'md5'
 
-const Login = ({setIsPositive, setMessage, setShowMessage, setLoggedInUser}) => {
+const Login = ({setIsPositive, setMessage, setShowMessage, setLoggedInUser, setIsAdmin}) => {
 
 //Komponentin tilan määritys
 const [username, setUsername] = useState('')
@@ -14,7 +14,7 @@ const [password, setPassword] = useState('')
 const handleSubmit = (event) => {
       event.preventDefault()
       var userForAuth = {
-        username: username,
+        userName: username,
         //password: password
         password: md5(password) // Salataan md5 kirjaston metodilla
     }
@@ -25,14 +25,21 @@ const handleSubmit = (event) => {
         if (response.status === 200) {
      
         // Talletetaan tietoja selaimen local storageen (f12 application välilehti)
-        localStorage.setItem("username", response.data.userName)
+        localStorage.setItem("userName", response.data.userName)
         localStorage.setItem("accesslevelId", response.data.accesslevelId)
         localStorage.setItem("token", response.data.token)
         
         // Asetetaan app komponentissa olevaan stateen
         setLoggedInUser(response.data.userName)
 
-       setMessage(`Logged in as: ${userForAuth.username}`)
+        if (response.data.accesslevelId === 1) {
+          setIsAdmin(true)
+        }
+        else {
+          setIsAdmin(false)
+        }
+
+       setMessage(`Logged in as: ${userForAuth.userName}`)
        setIsPositive(true)
        setShowMessage(true)
       
@@ -43,7 +50,7 @@ const handleSubmit = (event) => {
     }
       })
       .catch(error => {
-        setMessage(error)
+        setMessage(error.response.data)
         setIsPositive(false)
         setShowMessage(true)
 
